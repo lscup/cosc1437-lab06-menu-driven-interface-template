@@ -3,12 +3,10 @@
 #include <ctime>
 
 void displayGreeting() {
-    // Get current time
     time_t now = time(0);
     tm* localTime = localtime(&now);
     int hour = localTime->tm_hour;
-    
-    // Display appropriate greeting based on time of day
+
     std::cout << "\n";
     if (hour >= 5 && hour < 12) {
         std::cout << "Good morning!\n";
