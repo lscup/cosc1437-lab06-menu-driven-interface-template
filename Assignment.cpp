@@ -3,7 +3,8 @@
 
 Assignment::Assignment() : name(""), points_earned(0), points_possible(0) {}
 
-Assignment::Assignment(const std::string& n, float earned, float possible) : name(n), points_earned(earned), points_possible(possible) {}
+Assignment::Assignment(const std::string& n, float earned, float possible)
+    : name(n), points_earned(earned), points_possible(possible) {}
 
 std::string Assignment::getName() const {
     return name;
@@ -39,7 +40,7 @@ void Assignment::setPointsPossible(float possible) {
 }
 
 void Assignment::display() const {
-    std::cout << name << ": " 
-              << points_earned << "/" << points_possible 
-              << " (" << getPercentage() << "%\n";
+    std::cout << name << ": "
+              << points_earned << "/" << points_possible
+              << " (" << getPercentage() << "%)\n";
 }
