@@ -1,0 +1,24 @@
+{
+  "tests": [
+    {
+      "run": "echo 'Compilation successful'",
+      "name": "Compilation Check",
+      "input": "",
+      "setup": "g++ -std=c++17 -o main *.cpp",
+      "output": "Compilation successful\n",
+      "points": 10,
+      "timeout": 30,
+      "comparison": "exact"
+    },
+    {
+      "run": "./main",
+      "name": "Functional Test - Add and View Assignment",
+      "input": "Assignment1\n80\n100\nAssignment2\n90\n100\n0\n",
+      "setup": "",
+      "output": "Good morning!\nWelcome to the COSC 1437 Grade Calculator\n\nEnter assignment name: Enter points earned: Enter points possible: Add another assignment (y/n)? Enter assignment name: Enter points earned: Enter points possible: Add another assignment (y/n)? Enter assignment name: No assignments entered yet.\nTotal earned: 170 out of 200\n",
+      "points": 90,
+      "timeout": 30,
+      "comparison": "exact"
+    }
+  ]
+}
