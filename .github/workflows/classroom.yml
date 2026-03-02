@@ -1,0 +1,49 @@
+name: Autograding Tests
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Compile
+      run: g++ -std=c++17 -o main *.cpp
+
+    - name: compilationcheck
+      id: compilationcheck
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: "Compilation Check"
+        setup-command: g++ -std=c++17 -o main *.cpp
+        command: test -f main
+        timeout: 30
+        max-score: 10
+
+    - name: functionaltestaddandviewassignment
+      id: functionaltestaddandviewassignment
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: "Functional Test - Add and View Assignment"
+        command: printf 'Assignment1\n80\n100\nAssignment2\n90\n100\n0\n' | ./main
+        timeout: 30
+        max-score: 90
+
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        COMPILATIONCHECK_RESULTS: "${{steps.compilationcheck.outputs.result}}"
+        FUNCTIONALTESTADDANDVIEWASSIGNMENT_RESULTS: "${{steps.functionaltestaddandviewassignment.outputs.result}}"
+      with:
+        runners: compilationcheck,functionaltestaddandviewassignment
